@@ -7,28 +7,74 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetroFramework.Forms;
 
 namespace IS_1_20_ZakirovDK_U
 {
     public partial class Zadanie1 : Form
     {
-        class Complect
+        public abstract class Complect<T>
         {
-            int price;
-            int sience;
-            public Complect(int price,int sience)
+            public int price;
+            public int sience;
+            public T artic;
+            public Complect(int price,int sience, T artic)
             {
                 this.price = price;
                 this.sience = sience;
+                this.artic = artic;
             }
-            public void Display()
+            public virtual void Display()
             {
-
+                MessageBox.Show($"Цена:{price}, Дата выпуска:{sience}, Артикул:{artic}");
+            }
+        }
+        public class HardDrive<T> : Complect<T>
+        {
+            public int numrevol { get; set; }
+            public int interfacee { get; set; }
+            public int size { get; set; }
+            public HardDrive(int price, int sience, T artic, int numrevol, int interfacee, int size) : base(price, sience, artic)
+            {
+                this.numrevol = numrevol;
+                this.interfacee = interfacee;
+                this.size = size;
+            }
+            public override void Display()
+            {
+                MessageBox.Show($"Цена:{price}, Дата выпуска:{sience}, Артикул:{artic}, Количество оборотов:{numrevol}, Интерфейс:{interfacee}, Объём:{size}");
+            }
+        }
+        public class GPU<T> : Complect<T>
+        {
+            public int freq { get; set; }
+            public string maker { get; set; }
+            public int memory { get; set; }
+            public GPU(int price,int siense, T artic, int freq, string maker, int memory):base(price,siense,artic)
+            {
+                this.freq = freq;
+                this.maker = maker;
+                this.memory = memory;
+            }
+            public override void Display()
+            {
+                MessageBox.Show($"Цена:{price}, Дата выпуска:{sience}, Артикул:{artic}, Частота GPU:{freq}, Производитель:{maker}, Объём памяти:{memory}");
             }
         }
         public Zadanie1()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            listBox1.Items.Add($"Цена:{metroTextBox1.Text}");
+            listBox1.Items.Add($"Дата выпуска:{metroTextBox2.Text}");
+            listBox1.Items.Add($"Артикул:{metroTextBox3.Text}");
+            listBox1.Items.Add($"Частота оборотов:{metroTextBox4.Text}");
+            listBox1.Items.Add($"Интерфейс::{metroTextBox5.Text}");
+            listBox1.Items.Add($"Объём памяти:{metroTextBox6.Text}");
+            HardDrive<int> H1 = new HardDrive<int>(Convert.ToInt32(metroTextBox1.Text), Convert.ToInt32(metroTextBox2.Text));
         }
     }
 }
