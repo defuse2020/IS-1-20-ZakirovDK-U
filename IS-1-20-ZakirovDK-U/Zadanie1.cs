@@ -61,6 +61,8 @@ namespace IS_1_20_ZakirovDK_U
                 MessageBox.Show($"Цена:{price}, Дата выпуска:{sience}, Артикул:{artic}, Частота GPU:{freq}, Производитель:{maker}, Объём памяти:{memory}");
             }
         }
+
+        [Obsolete]
         public Zadanie1()
         {
             InitializeComponent();
