@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using static IS_1_20_ZakirovDK_U.Program;
 
 namespace IS_1_20_ZakirovDK_U
 {
@@ -20,7 +21,8 @@ namespace IS_1_20_ZakirovDK_U
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            Connection1 Conn1 = new Connection1();
+            Conn1.Conn();
         }
     }
 }
