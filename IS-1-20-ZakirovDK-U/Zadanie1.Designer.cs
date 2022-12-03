@@ -48,7 +48,7 @@ namespace IS_1_20_ZakirovDK_U
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(5, 10);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(530, 160);
+            this.listBox1.Size = new System.Drawing.Size(530, 238);
             this.listBox1.TabIndex = 18;
             // 
             // metroTextBox1

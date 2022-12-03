@@ -61,6 +61,7 @@ namespace IS_1_20_ZakirovDK_U
             this.Controls.Add(this.dataGridView1);
             this.Name = "Zadanie3";
             this.Text = "Zadanie3";
+            this.Load += new System.EventHandler(this.Zadanie3_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
