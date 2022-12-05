@@ -16,12 +16,15 @@ namespace IS_1_20_ZakirovDK_U
         //создаём класс
         public class Connection
         {
-            //создаём метод MySqlConnection, который будет выполнять подключение формы к БД
-            public MySqlConnection Conn()
+            public MySqlConnection OpenConn()
             {
-                string connect = "server=chuc.caseum.ru;port=33333;user=uchebka;database=uschebka;password=uchebka;"; //переменная string, содержащая строку подключения к БД
-                MySqlConnection conn = new MySqlConnection(connect); ; //экземпляр класса MySqlConnection, в который пишем переменную строки подключения
-                return conn; //возвтрат строки подключения
+                //"server=chuc.caseum.ru;port=33333;user=st_1_20_14;database=is_1_20_st14_KURS;password=45850148;"
+                //"server=chuc.caseum.ru;port=33333;user=uchebka;database=uschebka;password=uchebka;"
+                string connStr = "server=chuc.caseum.ru;port=33333;user=st_1_20_14;database=is_1_20_st14_KURS;password=45850148;";  
+                MySqlConnection conn = new MySqlConnection(connStr);
+                if (conn.State == System.Data.ConnectionState.Closed)
+                    conn.Open();
+                return conn;
             }
         }
         public Zadanie2()
@@ -37,12 +40,12 @@ namespace IS_1_20_ZakirovDK_U
             try
             {
                 //выполнение метода
-                Conn1.Conn();
+                Conn1.OpenConn();
             }
-            catch
+            catch(Exception ex)
             {
                 //если возникнет исключение, вылетит сообщение об ошибке
-                MessageBox.Show("Возникло исключение");
+                MessageBox.Show(ex.Message);
             }
         }
     }
