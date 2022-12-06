@@ -13,17 +13,16 @@ namespace IS_1_20_ZakirovDK_U
 {
     public partial class Zadanie2 : Form
     {
+        MySqlConnection conn;
         //создаём класс
         public class Connection
         {
-            public MySqlConnection OpenConn()
+            public static MySqlConnection OpenConn()
             {
                 //"server=chuc.caseum.ru;port=33333;user=st_1_20_14;database=is_1_20_st14_KURS;password=45850148;"
                 //"server=chuc.caseum.ru;port=33333;user=uchebka;database=uschebka;password=uchebka;"
                 string connStr = "server=chuc.caseum.ru;port=33333;user=st_1_20_14;database=is_1_20_st14_KURS;password=45850148;";  
                 MySqlConnection conn = new MySqlConnection(connStr);
-                if (conn.State == System.Data.ConnectionState.Closed)
-                    conn.Open();
                 return conn;
             }
         }
@@ -34,13 +33,12 @@ namespace IS_1_20_ZakirovDK_U
 
         private void Zadanie2_Load(object sender, EventArgs e)
         {
-            //создаём экземпляр класса Connection
-            Connection Conn1 = new Connection();
+            conn = Connection.OpenConn();
             //прогоняем выполнение метода через конструкцию try..catch
             try
             {
                 //выполнение метода
-                Conn1.OpenConn();
+                conn.Open();
             }
             catch(Exception ex)
             {

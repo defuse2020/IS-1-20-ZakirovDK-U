@@ -15,61 +15,45 @@ namespace IS_1_20_ZakirovDK_U
     public partial class Zadanie3 : Form
     {
         MySqlConnection conn;
-        Connection1 Conn1;
-        private MySqlDataAdapter MyDA = new MySqlDataAdapter();
-        private BindingSource bSource = new BindingSource();
-        private DataSet ds = new DataSet();
-        private DataTable table = new DataTable();
-        string id_selected_rows = "0";
+        //создаём класс
+        public class Connection
+        {
+            public static MySqlConnection OpenConn()
+            {
+                //"server=chuc.caseum.ru;port=33333;user=st_1_20_14;database=is_1_20_st14_KURS;password=45850148;"
+                //"server=chuc.caseum.ru;port=33333;user=uchebka;database=uschebka;password=uchebka;"
+                string connStr = "server=chuc.caseum.ru;port=33333;user=st_1_20_14;database=is_1_20_st14_KURS;password=45850148;";
+                MySqlConnection conn = new MySqlConnection(connStr);
+                return conn;
+            }
+        }
         public Zadanie3()
         {
             InitializeComponent();
         }
-
         public void GLU()
         {
+            conn.Open();
             string commandStr = "SELECT items.id_item, items.title_product, items.provider, items.title_maker, items.title_client, items.dt_delivery, items.dt_shipment, items.employee, items.count " +
                 "FROM items JOIN type ON type.id_type = items.title_product JOIN provider ON provider.id_provider = items.provider JOIN maker ON maker.id_maker = items.title_maker " +
                 "JOIN client ON client.id_client = items.title_client JOIN employees ON employees.id_employee = items.employee";
-            Conn1.Open1();
-            MyDA.SelectCommand = new MySqlCommand(commandStr, Conn1.ConnBD());
-            try
+            MySqlCommand command = new MySqlCommand(commandStr, conn);
+            MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
             {
-                MyDA.Fill(table);
+                int row = dataGridView1.Rows.Add();
+                dataGridView1.Rows[row].Cells[0].Value = reader[0].ToString();
+                dataGridView1.Rows[row].Cells[1].Value = reader[1].ToString();
+                dataGridView1.Rows[row].Cells[2].Value = reader[2].ToString();
+                dataGridView1.Rows[row].Cells[3].Value = reader[3].ToString();
+                dataGridView1.Rows[row].Cells[4].Value = reader[4].ToString();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            bSource.DataSource = table;
-            dataGridView1.DataSource = bSource;
-            Conn1.Close1();
-            int count_rows = dataGridView1.RowCount - 1;
+            reader.Close();
+            conn.Close();
         }
         private void button1_Click(object sender, EventArgs e)
         {
             GLU();
-               //dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-               //dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-               //dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-               //dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-               //dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-               //dataGridView1.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-               //dataGridView1.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-               //dataGridView1.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-               //dataGridView1.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-               //dataGridView1.Columns[9].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns.Add("items.id_item", "ID предмета");
-            dataGridView1.Columns.Add("items.title_product", "Название");
-            dataGridView1.Columns.Add("type_product", "Тип");
-            dataGridView1.Columns.Add("items.provider", "Поставщик");
-            dataGridView1.Columns.Add("items.title_maker", "Производитель");
-            dataGridView1.Columns.Add("items.title_client", "Клиент");
-            dataGridView1.Columns.Add("items.dt_delivery", "Дата поставки");
-            dataGridView1.Columns.Add("items.dt_shipment", "Дата выгрузки");
-            dataGridView1.Columns.Add("items.employee", "Сотрудник");
-            dataGridView1.Columns.Add("items.count", "Количество");
-            //Убираем заголовки строк
             dataGridView1.RowHeadersVisible = false;
             //Показываем заголовки столбцов
             dataGridView1.ColumnHeadersVisible = true;
@@ -77,8 +61,37 @@ namespace IS_1_20_ZakirovDK_U
 
         private void Zadanie3_Load(object sender, EventArgs e)
         {
-            Conn1 = new Connection1();
-            Conn1.ConnBD();
+            conn = Connection.OpenConn();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            conn.Open();
+            int rowIdx = e.RowIndex;
+            string commStr = "SELECT items.title_product, items.provider, items.title_maker, items.title_client, items.dt_delivery, items.dt_shipment, items.employee, items.count " +
+            "FROM items JOIN type ON type.id_type = items.title_product JOIN provider ON provider.id_provider = items.provider JOIN maker ON maker.id_maker = items.title_maker " +
+            "JOIN client ON client.id_client = items.title_client JOIN employees ON employees.id_employee = items.employee";
+
+            MySqlCommand command = new MySqlCommand(commStr, conn);
+
+            MySqlDataReader reader = command.ExecuteReader();
+
+            string info = "";
+
+            while (reader.Read())
+            {
+                info += $"Название продукта: {reader[0].ToString()}\n";
+                info += $"Тип продукта: {reader[1].ToString()}\n";
+                info += $"Поставщик: {reader[2].ToString()}\n";
+                info += $"Производитель: {reader[3].ToString()}\n";
+                info += $"Клиент: {reader[4].ToString()}\n";
+                info += $"Дата поставки: {reader[5].ToString()}\n";
+                info += $"Дата отгрузки: {reader[6].ToString()}\n";
+                info += $"Количество: {reader[7].ToString()}\n";
+            }
+            reader.Close();
+            MessageBox.Show(info);
+            conn.Close();
         }
     }
 }

@@ -31,16 +31,28 @@ namespace IS_1_20_ZakirovDK_U
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.title = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.provider = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.maker = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.client = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID,
+            this.title,
+            this.provider,
+            this.maker,
+            this.client});
             this.dataGridView1.Location = new System.Drawing.Point(12, 12);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(776, 184);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // button1
             // 
@@ -51,6 +63,36 @@ namespace IS_1_20_ZakirovDK_U
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            // 
+            // title
+            // 
+            this.title.HeaderText = "Название";
+            this.title.Name = "title";
+            this.title.ReadOnly = true;
+            // 
+            // provider
+            // 
+            this.provider.HeaderText = "Поставщик";
+            this.provider.Name = "provider";
+            this.provider.ReadOnly = true;
+            // 
+            // maker
+            // 
+            this.maker.HeaderText = "Производитель";
+            this.maker.Name = "maker";
+            this.maker.ReadOnly = true;
+            // 
+            // client
+            // 
+            this.client.HeaderText = "Клиент";
+            this.client.Name = "client";
+            this.client.ReadOnly = true;
             // 
             // Zadanie3
             // 
@@ -71,5 +113,10 @@ namespace IS_1_20_ZakirovDK_U
 
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn title;
+        private System.Windows.Forms.DataGridViewTextBoxColumn provider;
+        private System.Windows.Forms.DataGridViewTextBoxColumn maker;
+        private System.Windows.Forms.DataGridViewTextBoxColumn client;
     }
 }
