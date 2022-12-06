@@ -37,8 +37,8 @@ namespace IS_1_20_ZakirovDK_U
             string commandStr = "SELECT items.id_item, items.title_product, items.provider, items.title_maker, items.title_client, items.dt_delivery, items.dt_shipment, items.employee, items.count " +
                 "FROM items JOIN type ON type.id_type = items.title_product JOIN provider ON provider.id_provider = items.provider JOIN maker ON maker.id_maker = items.title_maker " +
                 "JOIN client ON client.id_client = items.title_client JOIN employees ON employees.id_employee = items.employee";
-            MySqlCommand command = new MySqlCommand(commandStr, conn);
-            MySqlDataReader reader = command.ExecuteReader();
+            MySqlCommand comm = new MySqlCommand(commandStr, conn);
+            MySqlDataReader reader = comm.ExecuteReader();
             while (reader.Read())
             {
                 int row = dataGridView1.Rows.Add();
@@ -81,13 +81,13 @@ namespace IS_1_20_ZakirovDK_U
             while (reader.Read())
             {
                 inform += $"Название продукта: {reader[0].ToString()}\n";
-                inform += $"Тип продукта: {reader[1].ToString()}\n";
-                inform += $"Поставщик: {reader[2].ToString()}\n";
-                inform += $"Производитель: {reader[3].ToString()}\n";
-                inform += $"Клиент: {reader[4].ToString()}\n";
-                inform += $"Дата поставки: {reader[5].ToString()}\n";
-                inform += $"Дата отгрузки: {reader[6].ToString()}\n";
-                inform += $"Количество: {reader[7].ToString()}\n";
+                inform += $"Тип продукта: {reader[1].ToString()}\n";     
+                inform += $"Поставщик: {reader[2].ToString()}\n";        
+                inform += $"Производитель: {reader[3].ToString()}\n";    
+                inform += $"Клиент: {reader[4].ToString()}\n";           
+                inform += $"Дата поставки: {reader[5].ToString()}\n";    
+                inform += $"Дата отгрузки: {reader[6].ToString()}\n";    
+                inform += $"Количество: {reader[7].ToString()}\n";       
             }
             reader.Close();
             MessageBox.Show(inform);
