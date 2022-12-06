@@ -34,5 +34,11 @@ namespace IS_1_20_ZakirovDK_U
             Zadanie3 Z3 = new Zadanie3();
             Z3.ShowDialog();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Zadanie_4 Z4 = new Zadanie_4();
+            Z4.ShowDialog();
+        }
     }
 }
